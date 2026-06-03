@@ -42,26 +42,26 @@ note: Only the MLII lead is used throughout the project.
 
 Three filters are applied sequentially:
 
-
+```text
 * High-Pass Filter:
 Removes baseline wander
 *Butterworth filter
 *Order: 4
 *Cutoff frequency: 0.5 Hz
-
-
-* Low-Pass Filter
+```
+```text
+* Low-Pass Filter:
 Removes high-frequency noise:
 * Butterworth filter
 * Order: 4
 * Cutoff frequency: 50 Hz
-
-
-* Notch Filter *
+```
+```text
+* Notch Filter:
 Suppresses power-line interference:
 * Center frequency: 60 Hz
 * Quality factor: 30
-
+```
 ---------------
 
  3. Frequency Domain Analysis
