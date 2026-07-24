@@ -74,7 +74,7 @@ b, a = sig.butter(4, 0.5, 'high', fs=Fs, analog=False)
 #filtering the signal and removing ndarray a and b from it
 ecg_preprocessed = sig.filtfilt(b, a, signal)
 
-#low pass filter
+# Low pass filter
 b, a= sig.butter(4 , 50 , 'low' , fs=Fs, analog=False)
 ecg_preprocessed = sig.filtfilt(b, a, ecg_preprocessed)
 
@@ -85,9 +85,9 @@ Y_filtered = np.fft.fft(ecg_preprocessed)
 
 """# **`Plot in freq domain`**"""
 
-#FREQ DOMAIN
+# FREQ DOMAIN
 
-#Spectrum Before Noise Removal
+# Spectrum Before Noise Removal
 plt.figure(figsize=(12, 8))
 plt.subplot (2,1,1)
 plt.plot(f[:N//2], np.abs(Y[:N//2]))
@@ -97,7 +97,7 @@ plt.ylabel('Magnitude')
 plt.ylim(-10 , 7000)
 plt.xlim (0,100)
 
-#Spectrum After Noise Removal
+# Spectrum After Noise Removal
 plt.subplot (2,1,2)
 plt.plot(f[:N//2], np.abs(Y_filtered[:N//2]))
 plt.title('Spectrum After Power Noise Removal')
@@ -108,7 +108,7 @@ plt.xlim (0,100)
 plt.tight_layout()
 plt.show()
 
-#Power Spectral Density Before
+# Power Spectral Density Before
 (ff, psd) = sig.periodogram(signal, fs=Fs, scaling='density')
 plt.semilogy(ff, psd)
 plt.ylim([1e-8, 1e2])
@@ -118,7 +118,7 @@ plt.xlabel('Frequency [Hz]')
 plt.ylabel('PSD [V**2/Hz]')
 plt.show()
 
-#Power Spectral Density After
+# Power Spectral Density After
 (ff, psd) = sig.periodogram(ecg_preprocessed, fs=Fs, scaling='density')
 plt.semilogy(ff, psd)
 plt.ylim([1e-8, 1e2])
@@ -130,7 +130,8 @@ plt.show()
 
 """# **`Plot in time domain`**"""
 
-#TIME DOMAIN
+# TIME DOMAIN
+
 peaks_r , info =sig.find_peaks(ecg_preprocessed , distance=150 , height = 0.65)
 p_wave_peaks = []
 t_wave_peaks = []
@@ -160,7 +161,7 @@ for i in range(len(peaks_r)):
             t_wave_id = np.argmax(t_wave_segment) + t_start
             t_wave_peaks.append(t_wave_id)
 
-#original signal in time domain
+# Original signal in time domain
 plt.figure(figsize=(15, 5))
 plt.plot(signal)
 plt.xlim([0,1000])
@@ -170,7 +171,7 @@ plt.title('Original signal')
 plt.grid(True)
 plt.show()
 
-#filtered signal with the peaks and wave
+# Filtered signal with the peaks and wave
 plt.figure(figsize=(15,5))
 plt.plot(ecg_preprocessed, label= 'Filtered signal')
 plt.plot(peaks_r, ecg_preprocessed[peaks_r], 'ro' , label='Detected R peaks')
